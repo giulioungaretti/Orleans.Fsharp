@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="Grains.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Orleans.Core.Abstractions" Version="2.4.2" />
+    <PackageReference Include="Microsoft.Orleans.OrleansCodeGenerator" Version="2.4.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FSharp.NetCore.Interfaces\FSharp.NetCore.Interfaces.fsproj" />
+  </ItemGroup>
+
+</Project>
