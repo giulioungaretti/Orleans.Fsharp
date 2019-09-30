@@ -1,4 +1,4 @@
-﻿namespace Tests.ClusterFixture
+﻿module Tests.ClusterFixture
 
 open System
 open Orleans.TestingHost
@@ -9,6 +9,14 @@ open FSharp.NetCore.Interfaces
 open FSharp.NetCore.Grains
 open Grains
 
+let assemblies = [|
+                    typeof<HelloGrainInDifferntFile>.Assembly
+                    typeof<HelloGrainInSameFile>.Assembly
+                    typeof<IHello>.Assembly
+                    typeof<IWillFail>.Assembly
+                    typeof<IWillWork>.Assembly
+                |]
+
 type TestSiloConf ()=
     interface ISiloBuilderConfigurator with
         member _.Configure(builder:ISiloHostBuilder) =
@@ -16,12 +24,7 @@ type TestSiloConf ()=
                     .AddMemoryGrainStorageAsDefault()
                     .UseLocalhostClustering()
                     .ConfigureApplicationParts(fun parts ->
-                      parts.AddApplicationPart(typeof<HelloGrainInDifferntFile>.Assembly)
-                              .AddApplicationPart(typeof<HelloGrainInSameFile>.Assembly)
-                              .AddApplicationPart(typeof<IHello>.Assembly)
-                              .AddApplicationPart(typeof<IWillFail>.Assembly)
-                              .AddApplicationPart(typeof<IWillWork>.Assembly)
-                              .AddFromAppDomain().WithCodeGeneration() |> ignore )
+                        assemblies |> Seq.iter(fun assembly -> parts.AddApplicationPart(assembly).WithCodeGeneration().WithReferences() |> ignore))
                     |> ignore
 
 type ClusterFixture()  =

@@ -8,18 +8,20 @@ open FSharp.Control.Tasks
 open FSharp.NetCore.Interfaces
 open FSharp.NetCore.Grains
 open Grains
+let assemblies = [|
+                    typeof<HelloGrainInDifferntFile>.Assembly
+                    typeof<HelloGrainInSameFile>.Assembly
+                    typeof<IHello>.Assembly
+                    typeof<IWillFail>.Assembly
+                    typeof<IWillWork>.Assembly
+                |]
 
 let buildClient () =
       let builder = new ClientBuilder()
       builder
         .UseLocalhostClustering()
         .ConfigureApplicationParts(fun parts ->
-          parts.AddApplicationPart(typeof<HelloGrainInDifferntFile>.Assembly)
-                  .AddApplicationPart(typeof<HelloGrainInSameFile>.Assembly)
-                  .AddApplicationPart(typeof<IHello>.Assembly)
-                  .AddApplicationPart(typeof<IWillFail>.Assembly)
-                  .AddApplicationPart(typeof<IWillWork>.Assembly)
-                  .AddFromAppDomain().WithCodeGeneration() |> ignore )
+          assemblies |> Seq.iter(fun assembly -> parts.AddApplicationPart(assembly).WithCodeGeneration().WithReferences() |> ignore))
         .ConfigureLogging(fun logging -> logging.AddConsole() |> ignore)
         .Build()
 
