@@ -6,22 +6,14 @@ open Orleans.Hosting
 open FSharp.Control.Tasks
 
 open FSharp.NetCore.Interfaces
-open FSharp.NetCore.Grains
-open Grains
-let assemblies = [|
-                    typeof<HelloGrainInDifferntFile>.Assembly
-                    typeof<HelloGrainInSameFile>.Assembly
-                    typeof<IHello>.Assembly
-                    typeof<IWillFail>.Assembly
-                    typeof<IWillWork>.Assembly
-                |]
 
 let buildClient () =
-      let builder = new ClientBuilder()
+      let builder = ClientBuilder()
       builder
         .UseLocalhostClustering()
         .ConfigureApplicationParts(fun parts ->
-          assemblies |> Seq.iter(fun assembly -> parts.AddApplicationPart(assembly).WithCodeGeneration().WithReferences() |> ignore))
+          parts.AddFromDependencyContext().WithCodeGeneration() |> ignore
+          )
         .ConfigureLogging(fun logging -> logging.AddConsole() |> ignore)
         .Build()
 
