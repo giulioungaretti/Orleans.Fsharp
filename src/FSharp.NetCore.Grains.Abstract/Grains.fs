@@ -16,8 +16,14 @@ module Grains =
             member this.SayHello (greeting : string) : Task<string> =
                 this.SayHello greeting
 
-    type HelloGrainInSameFile () =
+    type HelloGrainConcreteSameProject() =
+        inherit Grain ()
+        interface IConcreteHelloSameProject with
+            member this.SayHello (greeting : string) : Task<string> =
+                greeting |> sprintf "You said: %s, I say: concrete same project!" |> Task.FromResult
+
+    type HelloGrainOverrideSameProject () =
         inherit AbstractHelloGrain ()
-        interface IWillWork
+        interface IOverrideHelloSameProject
         override this.SayHello (greeting : string) : Task<string> =
-            greeting |> sprintf "You said: %s, I say: Hello!" |> Task.FromResult
+            greeting |> sprintf "You said: %s, I say: override same proeject!" |> Task.FromResult

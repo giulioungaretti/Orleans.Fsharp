@@ -13,7 +13,7 @@ Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "FSharp.NetCore.Grains.Abstr
 EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "FSharp.NetCore.Grains.Implementation", "src\FSharp.NetCore.Grains.Implementation\FSharp.NetCore.Grains.Implementation.fsproj", "{DB8D8DC3-7EBB-4AEB-8248-95D5BBA01CB8}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharp.NetCore.Test", "src\FSharp.NetCore.Test\FSharp.NetCore.Test.fsproj", "{9CD51778-F81A-47D0-91B9-BF7A6C0BEB55}"
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "FSharp.NetCore.Test", "src\FSharp.NetCore.Test\FSharp.NetCore.Test.fsproj", "{9CD51778-F81A-47D0-91B9-BF7A6C0BEB55}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

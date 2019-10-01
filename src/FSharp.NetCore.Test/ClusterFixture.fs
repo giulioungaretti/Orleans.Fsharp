@@ -1,4 +1,4 @@
-module Tests.ClusterFixture
+﻿module Tests.ClusterFixture
 
 open System
 open Orleans.TestingHost

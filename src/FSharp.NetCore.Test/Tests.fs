@@ -24,17 +24,34 @@ module Facts =
       [<Fact>]
       member this.``Hello`` () =
           let primaryKey = Guid.NewGuid();
-          let g = this.cluster.GrainFactory.GetGrain<IWillWork> 0L
+          let g = this.cluster.GrainFactory.GetGrain<IConcreteHelloDifferentProject> 0L
           task {
              let!  res =  g.SayHello("Hi")
-             Assert.Equal("You said: Hi, I say: Hello!", res)
+             Assert.Equal("You said: Hi, I say: concrete differnt project!", res)
+          }
+      [<Fact>]
+      member this.``ciao`` () =
+          let primaryKey = Guid.NewGuid();
+          let g = this.cluster.GrainFactory.GetGrain<IConcreteHelloSameProject> 0L
+          task {
+             let!  res =  g.SayHello("Hi")
+             Assert.Equal("You said: Hi, I say: concrete same project!", res)
           }
 
       [<Fact>]
       member this.``also Hello`` () =
           let primaryKey = Guid.NewGuid();
-          let g = this.cluster.GrainFactory.GetGrain<IWillFail> 0L
+          let g = this.cluster.GrainFactory.GetGrain<IOverrideHelloSameProject> 0L
           task {
              let!  res =  g.SayHello("Hi")
-             Assert.Equal("You said: Hi, I say: Hello!", res)
+             Assert.Equal("You said: Hi, I say: override same proeject!", res)
+          }
+
+      [<Fact>]
+      member this.``also Hello different proejct`` () =
+          let primaryKey = Guid.NewGuid();
+          let g = this.cluster.GrainFactory.GetGrain<IOverrideHelloDifferentProject> 0L
+          task {
+             let!  res =  g.SayHello("Hi")
+             Assert.Equal("You said: Hi, I say: override different project!", res)
           }

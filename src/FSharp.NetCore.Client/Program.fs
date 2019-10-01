@@ -19,10 +19,7 @@ let buildClient () =
 
 let worker (client : IClusterClient) =
     task {
-        let friend = client.GetGrain<IWillWork> 0L
-        let! response = friend.SayHello ("Good morning, my friend!")
-        printfn "%s" response
-        let friend = client.GetGrain<IWillFail> 0L
+        let friend = client.GetGrain<IConcreteHelloDifferentProject> 0L
         let! response = friend.SayHello ("Good morning, my friend!")
         printfn "%s" response
     }

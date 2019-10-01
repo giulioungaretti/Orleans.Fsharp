@@ -8,8 +8,14 @@ module Interfaces =
         inherit Orleans.IGrainWithIntegerKey
         abstract member SayHello : string -> Task<string>
 
-    type IWillWork =
+    type IOverrideHelloSameProject=
         inherit IHello
 
-    type IWillFail =
+    type IOverrideHelloDifferentProject=
+        inherit IHello
+
+    type IConcreteHelloSameProject=
+        inherit IHello
+
+    type IConcreteHelloDifferentProject=
         inherit IHello
