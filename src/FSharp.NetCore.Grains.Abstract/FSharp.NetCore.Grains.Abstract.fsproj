@@ -11,6 +11,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Orleans.Core.Abstractions" Version="3.0.0-beta1" />
     <PackageReference Include="Microsoft.Orleans.OrleansCodeGenerator" Version="3.0.0-beta1" />
+    <PackageReference Include="TaskBuilder.fs" Version="2.1.0" />
   </ItemGroup>
 
   <ItemGroup>

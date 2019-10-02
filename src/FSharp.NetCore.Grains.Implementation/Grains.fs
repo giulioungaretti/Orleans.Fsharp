@@ -17,3 +17,9 @@ type HelloGrainOverrideDifferntProject () =
     interface IOverrideHelloDifferentProject
     override this.SayHello (greeting : string) : Task<string> =
         greeting |> sprintf "You said: %s, I say: override different project!" |> Task.FromResult
+
+type ActualEvent () =
+    inherit Event<string> ()
+    interface IActualEvent
+    override this.Event () =
+        sprintf "You said: Hi, I say: override different project!"

@@ -19,3 +19,11 @@ module Interfaces =
 
     type IConcreteHelloDifferentProject=
         inherit IHello
+
+    type IEvent =
+        inherit Orleans.IGrainWithIntegerKey
+        abstract member Event<'a> : unit -> Task<'a>
+
+    type IActualEvent =
+        inherit IEvent
+

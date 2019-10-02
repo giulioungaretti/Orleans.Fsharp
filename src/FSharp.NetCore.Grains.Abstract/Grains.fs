@@ -5,6 +5,7 @@ module Grains =
     open System.Threading.Tasks
     open Orleans
     open FSharp.NetCore.Interfaces
+    open FSharp.Control.Tasks
 
     [<AbstractClass>]
     type AbstractHelloGrain () =
@@ -27,3 +28,16 @@ module Grains =
         interface IOverrideHelloSameProject
         override this.SayHello (greeting : string) : Task<string> =
             greeting |> sprintf "You said: %s, I say: override same proeject!" |> Task.FromResult
+
+    [<AbstractClass>]
+    type Event<'T> () =
+        inherit Grain ()
+
+        abstract member Event: unit -> 'T
+
+        interface IEvent with
+            member this.Event<'s> () : Task<'s> =
+                task {
+                    let a = this.Event()
+                    return box (a) :?> 's
+                }

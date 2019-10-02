@@ -55,3 +55,12 @@ module Facts =
              let!  res =  g.SayHello("Hi")
              Assert.Equal("You said: Hi, I say: override different project!", res)
           }
+
+      [<Fact>]
+      member this.``Do type param break stuff?`` () =
+          let primaryKey = Guid.NewGuid();
+          let g = this.cluster.GrainFactory.GetGrain<IActualEvent> 0L
+          task {
+             let!  res =  g.Event<string>()
+             Assert.Equal("You said: Hi, I say: override different project!", res)
+          }
